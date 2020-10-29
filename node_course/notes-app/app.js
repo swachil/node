@@ -24,22 +24,47 @@ if (argValue === 'add') {
 } else if (argValue === 'sub') {
     // console.log(parseInt(process.argv[3]) - parseInt(process.argv[4]));
 }
-console.log('-----------------------Command Line Argument Parsing Using Yargs---------------------------------');
-console.log(yargs.argv);
 
 // Create add command using yargs
+console.log('-----------------------Command Line Argument Parsing Using Yargs---------------------------------');
 yargs.command({
     command: 'add',
     describe: 'Add numbers',
-    handler: function () {
-        console.log('Added numbers.')
+    builder: {
+        num1: {
+            describe: 'Number 1',
+            demandOption: true,
+            type: 'int'
+        },
+        num2: {
+            describe: 'Number 2',
+            demandOption: true,
+            type: 'int'
+        }
+    },
+    handler: function (argv) {
+        console.log(argv.num1 + argv.num2)
     }
-}).parse();
+});
 
 yargs.command({
     command: 'sub',
     describe: 'Subtract numbers',
-    handler: function () {
-        console.log('Numbers subtracted.')
+    builder: {
+        num1: {
+            describe: 'Number 1',
+            demandOption: true,
+            type: 'int'
+        },
+        num2: {
+            describe: 'Number 2',
+            demandOption: true,
+            type: 'int'
+        }
+    },
+    handler: function (argv) {
+        console.log(argv.num1 - argv.num2)
     }
-}).parse();
+});
+
+yargs.parse();
